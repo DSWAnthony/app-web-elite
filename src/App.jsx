@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 //Paginas
 import HomePage from "./pages/HomePage";;
 import ProductosPage from "./pages/ProductPage"
+import SupplierPage from "./pages/SupplierPage";
 
 const { Header, Sider, Content } = Layout;
 
@@ -46,6 +47,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/productos" element={<ProductosPage />} />
+              <Route path="/proveedores" element={<SupplierPage />} /> 
             </Routes>
 
           </Content>
