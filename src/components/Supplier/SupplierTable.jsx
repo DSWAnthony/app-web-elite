@@ -3,6 +3,13 @@ import React from 'react'
 const SupplierTable = () => {
   return (
     <>
+
+    
+  <div className="d-flex justify-content-end mb-3">
+    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Añadir
+    </button>
+  </div>
     <table className="table">
   <thead>
     <tr>
@@ -55,12 +62,6 @@ const SupplierTable = () => {
 {/*Este es el MODAL*/}
 
 {/*EL BUTTON DEL MODAL*/}
-
-<div className="d-flex justify-content-center mb-3">
-  <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    AGREGAR PROVEEDOR
-  </button>
-</div>
 
 <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog">

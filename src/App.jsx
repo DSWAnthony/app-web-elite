@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Layout, theme } from "antd";
+import { Button, Layout, theme, Affix } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import Logo from "./components/sidebar/Logo";
 import MenuList from "./components/sidebar/MenuList";
@@ -24,10 +24,12 @@ const App = () => {
       <Layout>
         
         {/* Barra de Navegacion */}
+        <Affix offsetTop={0}>
         <Sider trigger={null} collapsible collapsed={collapse} className="sidebar">
           <Logo />
           <MenuList />
         </Sider>
+        </Affix>
 
         <Layout>
           
