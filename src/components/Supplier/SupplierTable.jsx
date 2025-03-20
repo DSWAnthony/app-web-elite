@@ -92,6 +92,7 @@ const SupplierTable = () => {
     </div>
   </div>
 </div>
+
 </>
   )
 }
