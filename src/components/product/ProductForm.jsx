@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ProductForm = ({ form }) => {
   const { 
@@ -9,6 +9,12 @@ const ProductForm = ({ form }) => {
     handleFileChange,
     handleSwitchChange
   } = form;
+
+  const [fecha, setFecha] = useState("");
+  const onChangeDate = (event) =>  {
+     console.log(event.target.value);
+     setFecha(event.target.value);
+  }
 
   return (
     <>
@@ -202,16 +208,25 @@ const ProductForm = ({ form }) => {
 
         {/* Precio Unidad */}
         <div className="mb-3 mt-3">
-          <label className="form-label">Precio Unidad</label>
-          <input
-            type="number"
-            step="0.01"
-            className="form-control w-50"
-            name="precioUnidad"
-            value={formData.zapato.precioComercial || ""}
-            onChange={handleInputChange}
-            placeholder="Precio Unidad"
-          />
+          <div className="row">
+            <div className="col">
+              <label className="form-label">Precio Unidad</label>
+              <input
+                type="number"
+                step="0.01"
+                className="form-control"
+                name="precioUnidad"
+                value={formData.zapato.precioComercial || ""}
+                onChange={handleInputChange}
+                placeholder="Precio Unidad"
+              />
+            </div>
+            <div className="col">
+              <label htmlFor="datepicker" className="form-label">Fecha de Ingreso</label>
+              <input type="date" className="form-control" id="datepicker"
+               onChange={ onChangeDate } value={fecha}/>
+            </div>
+          </div>
         </div>
       </FormSection>
 

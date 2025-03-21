@@ -10,7 +10,6 @@ const ProductPage = () => {
 
   return (    
     <>
-      <h1>Pagina de Productos</h1>
       <ProductTable></ProductTable>
     </>
   )

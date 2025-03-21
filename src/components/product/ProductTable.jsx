@@ -18,20 +18,23 @@ const ProductTable = () => {
         Inventario de Calzado
       </h1>
 
-      {/* Botón para agregar producto */}
-      <div className="text-center mt-4">
+
+      <div className="d-flex justify-content-between mb-3">
+        <input
+          type="text"
+          className="form-control w-25"
+          placeholder="Buscar por nombre..."
+          // value={terminoBusqueda}
+          // onChange={handleSearch}
+        />
         <button
-          className="btn btn-primary btn-lg rounded-pill"
-          style={{
-            backgroundColor: "#3498db",
-            border: "none",
-            padding: "10px 20px",
-          }}
-          onClick={() => inventory.openAddModal(form.resetForm)}
+          type="button"
+          className="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#modal"
+          onClick={() => inventory.openAddModal(form.resetForm)}
         >
-          <i className="bi bi-plus-lg"></i> Agregar Calzado
+          Añadir
         </button>
       </div>
 

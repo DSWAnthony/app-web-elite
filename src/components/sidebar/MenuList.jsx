@@ -7,19 +7,14 @@ const MenuList = () => {
   const location = useLocation();
 
   const items = [
-    { key: "/", icon: <HomeOutlined />, label: <Link to="/">Inicio</Link> },
+    { key: "/dashboard", icon: <HomeOutlined />, label: <Link to="/dashboard">Inicio</Link> },
     {
-      key: "actividad",
+      key: "/actividad",
       icon: <HomeOutlined />,
-      label: "Actividad",
-      children: [
-        { key: "/actividad/general", label: <Link to="/actividad/general">General</Link> },
-        { key: "/actividad/detalle", label: <Link to="/actividad/detalle">Detalle</Link> },
-      ],
+      label: <Link to="/actividad">Productos</Link> 
     },
-    { key: "/productos", icon: <DropboxOutlined />, label: <Link to="/productos">Productos</Link> },
+    { key: "/inventario", icon: <DropboxOutlined />, label: <Link to="/inventario">Inventario</Link> },
     { key: "/proveedores", icon: <TruckOutlined />, label: <Link to="/proveedores">Proveedores</Link> },
-    { key: "/configuracion", icon: <SettingOutlined />, label: <Link to="/configuracion">Configuración</Link> },
   ];
 
   return (
