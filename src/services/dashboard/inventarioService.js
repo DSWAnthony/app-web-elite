@@ -46,3 +46,14 @@ export const guardarAInventario = async (form, imagen) => {
         throw error;
     }
 };
+
+export const getInventario = async () => {
+    try {
+        const response = await api.get('/inventario/detalle');
+        console.log("Respuesta API:", response);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener zapatillas:", error);
+        return [];
+    }
+};
