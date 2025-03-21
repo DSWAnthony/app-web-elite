@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 
-const TablaProveedores = () => {
-  const [proveedores, setProveedores] = useState([
-    { Id: 1, Nombre: "Tottus", Ruc: "20555555555", Correo: "contacto@tottus.com" },
-    { Id: 2, Nombre: "Plaza Vea", Ruc: "20666666666", Correo: "info@plazavea.com" },
-    { Id: 3, Nombre: "Metro", Ruc: "20777777777", Correo: "atencion@metro.com" },
-  ]);
+const TablaProveedores = ({proveedores}) => {
 
   const [tipoModal, setTipoModal] = useState("");
   const [proveedorSeleccionado, setProveedorSeleccionado] = useState(null);
@@ -34,9 +29,7 @@ const TablaProveedores = () => {
     setTipoModal("");
   };
 
-  const proveedoresFiltrados = proveedores.filter((proveedor) =>
-    proveedor.Nombre.toLowerCase().includes(terminoBusqueda.toLowerCase())
-  );
+
 
   return (
     <>
@@ -80,15 +73,15 @@ const TablaProveedores = () => {
           </tr>
         </thead>
         <tbody>
-          {proveedoresFiltrados.map((proveedor) => (
-            <tr key={proveedor.Id}>
-              <th>{proveedor.Id}</th>
-              <td>{proveedor.Nombre}</td>
-              <td>{proveedor.Ruc}</td>
-              <td>{proveedor.Ruc}</td>
-              <th>{proveedor.Id}</th>
-              <th>{proveedor.Id}</th>
-              <td>{proveedor.Correo}</td>
+          {proveedores.map((proveedor) => (
+            <tr key={proveedor.proveedor_id}>
+              <th>{proveedor.proveedor_id}</th>
+              <td>{proveedor.nombre}</td>
+              <td>{proveedor.ruc}</td>
+              <td>{proveedor.contacto}</td>
+              <th>{proveedor.telefono}</th>
+              <th>{proveedor.email}</th>
+              <td>{proveedor.direccion}</td>
               <td className="acciones">
                 <div>
                   <button
