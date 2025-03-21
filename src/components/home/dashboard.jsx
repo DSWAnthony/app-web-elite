@@ -24,13 +24,7 @@ import {
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
-const Dashboard = ({ products = [] }) => {
-  const pieData = [
-    { type: "Nike", value: 150 },
-    { type: "Adidas", value: 120 },
-    { type: "Puma", value: 90 },
-    { type: "Reebok", value: 50 },
-  ];
+const Dashboard = ({ products = [] , calculos, stockPorMarca, ingresosDelAnio }) => {
 
   const barData = [
     { category: "Running", stock: 300 },
@@ -99,9 +93,9 @@ const Dashboard = ({ products = [] }) => {
 
   // Chart configurations
   const pieConfig = {
-    data: pieData,
-    angleField: "value",
-    colorField: "type",
+    data: stockPorMarca,
+    angleField: "stock",
+    colorField: "marca",
     radius: 0.8,
     width: 250,
     height: 250,
@@ -118,9 +112,9 @@ const Dashboard = ({ products = [] }) => {
   };
 
   const lineConfig = {
-    data: orderStatusData,
+    data: ingresosDelAnio,
     xField: "month",
-    yField: ["nike", "adidas", "rebook"],
+    yField: ["nike", "adidas"],
     seriesField: "type",
     smooth: true,
     height: 300, 
@@ -234,7 +228,7 @@ const Dashboard = ({ products = [] }) => {
             <Card variant={false} className="dashboard-card">
               <Statistic
                 title={<Text strong>Capital</Text>}
-                value={2500}
+                value={calculos.totalInversion}
                 prefix={<ArrowUpOutlined style={{ color: "#52c41a" }} />}
                 suffix="$"
                 valueStyle={{ color: "#52c41a" }}
@@ -253,7 +247,7 @@ const Dashboard = ({ products = [] }) => {
             <Card variant={false} className="dashboard-card">
               <Statistic
                 title={<Text strong>Bajo Stock</Text>}
-                value={13100}
+                value={calculos.bajoStock}
                 prefix={<ShoppingCartOutlined style={{ color: "#1890ff" }} />}
                 valueStyle={{ color: "#1890ff" }}
               />
@@ -271,7 +265,7 @@ const Dashboard = ({ products = [] }) => {
             <Card variant={false} className="dashboard-card">
               <Statistic
                 title={<Text strong>Productos</Text>}
-                value={132700}
+                value={calculos.totalZapatos}
                 prefix={<TrophyOutlined style={{ color: "#722ed1" }} />}
                 valueStyle={{ color: "#722ed1" }}
               />
@@ -289,7 +283,7 @@ const Dashboard = ({ products = [] }) => {
             <Card variant={false} className="dashboard-card">
               <Statistic
                 title={<Text strong>Proveedores</Text>}
-                value={5100}
+                value={calculos.totalProveedor}
                 prefix={<UserOutlined style={{ color: "#fa8c16" }} />}
                 valueStyle={{ color: "#fa8c16" }}
               />
