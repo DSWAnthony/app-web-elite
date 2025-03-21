@@ -227,10 +227,10 @@ const Dashboard = ({ products = [] , calculos, stockPorMarca, ingresosDelAnio })
           <Col xs={24} sm={12} md={6} lg={6}>
             <Card variant={false} className="dashboard-card">
               <Statistic
-                title={<Text strong>Capital</Text>}
+                title={<Text strong>Inversion</Text>}
                 value={calculos.totalInversion}
                 prefix={<ArrowUpOutlined style={{ color: "#52c41a" }} />}
-                suffix="$"
+                suffix="S"
                 valueStyle={{ color: "#52c41a" }}
               />
               <ReloadOutlined
@@ -369,29 +369,7 @@ const Dashboard = ({ products = [] , calculos, stockPorMarca, ingresosDelAnio })
             </Card>
           </Col>
         </Row>
-
-        {/* Table */}
-        <Card
-          title="Últimos Movimientos"
-          variant={false}
-          style={{ marginTop: "16px" }}
-        >
-          <Table
-            columns={columns}
-            dataSource={tableData}
-            pagination={{ pageSize: 5 }}
-            rowSelection={{
-              type: "checkbox",
-              onChange: (selectedRowKeys, selectedRows) => {
-                console.log(
-                  `selectedRowKeys: ${selectedRowKeys}`,
-                  "selectedRows: ",
-                  selectedRows
-                );
-              },
-            }}
-          />
-        </Card>
+     
       </Content>
     </Layout>
   );

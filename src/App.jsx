@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Button, Layout, theme, Affix } from "antd";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import { Button, Layout, theme, Affix, Avatar } from "antd";
+import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined } from "@ant-design/icons";
 import Logo from "./components/sidebar/Logo";
 import MenuList from "./components/sidebar/MenuList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //Paginas
 import HomePage from "./pages/HomePage";;
-import ProductosPage from "./pages/ProductPage"
+import ProductosPage from "./pages/InventoryPage"
 import SupplierPage from "./pages/SupplierPage";
 
 const { Header, Sider, Content } = Layout;
@@ -41,14 +41,15 @@ const App = () => {
               onClick={() => setCollapse(!collapse)}
               icon={collapse ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             />
+            
           </Header>
 
           {/* Contenido de Cada Seccion  */}
           <Content style={{ padding: "16px" }}>
 
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/productos" element={<ProductosPage />} />
+              <Route path="/dashboard" element={<HomePage />} />
+              <Route path="/inventario" element={<ProductosPage />} />
               <Route path="/proveedores" element={<SupplierPage />} /> 
             </Routes>
 

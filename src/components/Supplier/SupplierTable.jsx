@@ -72,7 +72,10 @@ const TablaProveedores = () => {
             <th scope="col">ID</th>
             <th scope="col">NOMBRE</th>
             <th scope="col">RUC</th>
-            <th scope="col">CORREO</th>
+            <th scope="col">DIRECCION</th>
+            <th scope="col">CONTACTO</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">TELEFONO</th>
             <th scope="col">ACCIONES</th>
           </tr>
         </thead>
@@ -82,6 +85,9 @@ const TablaProveedores = () => {
               <th>{proveedor.Id}</th>
               <td>{proveedor.Nombre}</td>
               <td>{proveedor.Ruc}</td>
+              <td>{proveedor.Ruc}</td>
+              <th>{proveedor.Id}</th>
+              <th>{proveedor.Id}</th>
               <td>{proveedor.Correo}</td>
               <td className="acciones">
                 <div>
