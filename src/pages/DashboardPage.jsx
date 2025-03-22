@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Dashboard from '../components/home/dashboard';
+import Dashboard from '../components/dashboard/dashboard';
 import { getIngresosDelAnio, getStockPorMarca, getTotalBajoStock, getTotalInversion, getTotalProveedores, getTotalZapatos } from '../services/dashboard/dashboardService';
 
-const HomePage = () => {
+const DashboardPage = () => {
 
   const [calculos, setCalculos] = useState({
     bajoStock: 0,
@@ -65,4 +65,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage
+export default DashboardPage

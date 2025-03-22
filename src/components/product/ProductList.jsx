@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "antd";
 
 const ProductList = ({ inventario = [], onEdit, onDelete }) => {
   return (
@@ -21,9 +22,12 @@ const ProductList = ({ inventario = [], onEdit, onDelete }) => {
           {inventario.length > 0 ? (
             inventario.map((item) => (
               <tr key={item.sku}>
-                <th scope="row">{item.sku}</th>
+                <th scope="row">{item .sku}</th>
                 <td>
-                  <img src={item.imagen} width={90} alt={`Producto ${item.modelo}`} />
+                    <Image
+                      src={item.imagen}
+                      width={90}
+                    />
                 </td>
                 <td>{item.modelo}</td>
                 <td>{item.color}</td>
