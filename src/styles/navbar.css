@@ -1,0 +1,24 @@
+/* Estilos para el navbar */
+.custom-navbar {
+    height: 120px; /* Altura fija del navbar */
+    padding-top: 10px; /* Espacio superior para centrar el logo */
+    padding-bottom: 10px; /* Espacio inferior para centrar el logo */
+  }
+  
+  /* Estilos para el logo */
+  .navbar-logo {
+    height: 150px; /* Altura del logo */
+    width: auto; /* Ancho automático para mantener la proporción */
+    max-width: 100%; /* Evita que el logo se desborde */
+  }
+  
+  /* Ajustes para el botón del menú en móviles */
+  .navbar-toggler {
+    margin-top: 10px; /* Centra el botón con el logo */
+  }
+  
+  /* Ajustes para los enlaces del navbar */
+  .navbar-nav .nav-link {
+    font-size: 1rem; /* Tamaño de fuente */
+    padding: 10px 15px; /* Espaciado interno */
+  }
