@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProductList = ({ products, onEdit, onDelete }) => {
+const ProductList = ({ inventario = [], onEdit, onDelete }) => {
   return (
     <div className="table-responsive">
       <table className="table table-hover table-bordered shadow-sm">
@@ -14,42 +14,40 @@ const ProductList = ({ products, onEdit, onDelete }) => {
             <th scope="col">MARCA</th>
             <th scope="col">STOCK</th>
             <th scope="col">ALMACEN</th>
-            <th scope="col" style={{ width: "150px" }}>
-              ACCIONES
-            </th>
+            <th scope="col" style={{ width: "150px" }}>ACCIONES</th>
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <th scope="row">{product.id}</th>
-              <td><img src="https://imgs.search.brave.com/_toqT8IRn1TgcZsWaLmUIyGozfTFh2vCNwcyEiZ3NAU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzExdjJwUFZIS0wu/anBn" width={90} /></td>
-              <td>{product.last}</td>
-              <td>{product.handle}</td>
-              <td>{product.handle}</td>
-              <td>{product.handle}</td>
-              <td>{product.handle}</td>
-              <td>{product.handle}</td>
-              <td style={{ textAlign: "center" }}>
-                <button
-                  className="btn btn-warning btn-sm me-2"
-                  onClick={() => onEdit(product)}
-                  data-bs-toggle="modal"
-                  data-bs-target="#modal"
-                >
-                  <i className="bi bi-pencil-fill"></i> Editar
-                </button>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => onDelete(product)}
-                  data-bs-toggle="modal"
-                  data-bs-target="#modal"
-                >
-                  <i className="bi bi-trash-fill"></i> Eliminar
-                </button>
+          {inventario.length > 0 ? (
+            inventario.map((item) => (
+              <tr key={item.sku}>
+                <th scope="row">{item.sku}</th>
+                <td>
+                  <img src={item.imagen} width={90} alt={`Producto ${item.modelo}`} />
+                </td>
+                <td>{item.modelo}</td>
+                <td>{item.color}</td>
+                <td>{item.talla}</td>
+                <td>{item.marca}</td>
+                <td>{item.stock}</td>
+                <td>{item.almacen}</td>
+                <td style={{ textAlign: "center" }}>
+                  <button className="btn btn-warning btn-sm me-2" onClick={() => onEdit(item)}>
+                    <i className="bi bi-pencil-fill"></i> Editar
+                  </button>
+                  <button className="btn btn-danger btn-sm" onClick={() => onDelete(item)}>
+                    <i className="bi bi-trash-fill"></i> Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="9" style={{ textAlign: "center" }}>
+                No hay productos en inventario
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

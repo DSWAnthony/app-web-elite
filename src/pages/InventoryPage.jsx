@@ -1,26 +1,28 @@
-import React, { useEffect } from 'react'
-import ProductTable from '../components/product/ProductTable'
-import { getInventario } from '../services/dashboard/inventarioService'
+import React, { useEffect, useState } from "react";
+import ProductList from "../components/product/ProductList"; // Asegúrate de que el nombre del componente es correcto
+import { getInventario } from "../services/dashboard/inventarioService";
 
 const ProductPage = () => {
-  
+  const [inventario, setInventario] = useState([]); // Aquí definimos el estado
 
   useEffect(() => {
-
     const fetchData = async () => {
-      const inventario = await getInventario();
-    }
-
+      try {
+        const inventarioApi = await getInventario();
+        console.log("Datos recibidos de la API:", inventarioApi);
+        setInventario(inventarioApi); // Asignamos los datos al estado
+      } catch (error) {
+        console.error("Error al obtener inventario:", error);
+      }
+    };
     fetchData();
+  }, []);
 
-  }, [])
-  
-
-  return (    
+  return (
     <>
-      <ProductTable></ProductTable>
+      <ProductList inventario={inventario} onEdit={() => {}} onDelete={() => {}} />
     </>
-  )
-}
+  );
+};
 
-export default ProductPage
+export default ProductPage;
