@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { crearProveedor, editarProveedor, eliminarProveedor } from "../../services/dashboard/supplierServices";
 
 const TablaProveedores = ({proveedores}) => {
 
   const [tipoModal, setTipoModal] = useState("");
   const [proveedorSeleccionado, setProveedorSeleccionado] = useState(null);
-  const [formularioDatos, setFormularioDatos] = useState({ Id: "", Nombre: "", Ruc: "", Correo: "" });
+  const [formularioDatos, setFormularioDatos] = useState({  nombre: "", ruc: "", contacto: "",email: "",telefono: "" ,direccion: ""});
   const [terminoBusqueda, setTerminoBusqueda] = useState("");
 
   const handleChange = (e) => {
@@ -15,17 +16,17 @@ const TablaProveedores = ({proveedores}) => {
     setTerminoBusqueda(e.target.value);
   };
 
-  const handleGuardar = () => {
-    if (tipoModal === "Agregar") {
-      setProveedores([...proveedores, { ...formularioDatos, Id: proveedores.length + 1 }]);
+  const handleGuardar = async() => {
+    if (tipoModal === "Agregar") {  
+      await crearProveedor(formularioDatos)
     } else {
-      setProveedores(proveedores.map((p) => (p.Id === formularioDatos.Id ? formularioDatos : p)));
+      await editarProveedor(formularioDatos.proveedor_id,formularioDatos)
     }
     setTipoModal("");
   };
 
-  const handleEliminar = () => {
-    setProveedores(proveedores.filter((p) => p.Id !== proveedorSeleccionado.Id));
+  const handleEliminar = async() => {
+    await eliminarProveedor(proveedorSeleccionado.proveedor_id);
     setTipoModal("");
   };
 
@@ -49,7 +50,7 @@ const TablaProveedores = ({proveedores}) => {
           data-bs-target="#modal"
           onClick={() => {
             setTipoModal("Agregar");
-            setFormularioDatos({ Id: "", Nombre: "", Ruc: "", Correo: "" });
+            setFormularioDatos({  nombre: "", ruc: "", contacto: "",email: "",telefono: "" ,direccion: ""});
           }}
         >
           Añadir
@@ -126,21 +127,33 @@ const TablaProveedores = ({proveedores}) => {
             <div className="modal-body">
               {tipoModal === "Eliminar" ? (
                 <p>
-                  ¿Seguro que quieres eliminar a <b>{proveedorSeleccionado?.Nombre}</b>?
+                  ¿Seguro que quieres eliminar a <b>{proveedorSeleccionado?.nombre}</b>?
                 </p>
               ) : (
                 <>
                   <div className="form-floating mb-3">
-                    <input type="text" className="form-control" name="Nombre" value={formularioDatos.Nombre} onChange={handleChange} placeholder="Nombre" />
+                    <input type="text" className="form-control" name="nombre" value={formularioDatos.nombre} onChange={handleChange} placeholder="Nombre" />
                     <label>Nombre</label>
                   </div>
                   <div className="form-floating mb-3">
-                    <input type="text" className="form-control" name="Ruc" value={formularioDatos.Ruc} onChange={handleChange} placeholder="RUC" />
+                    <input type="text" className="form-control" name="ruc" value={formularioDatos.ruc} onChange={handleChange} placeholder="RUC" />
                     <label>RUC</label>
                   </div>
                   <div className="form-floating mb-3">
-                    <input type="email" className="form-control" name="Correo" value={formularioDatos.Correo} onChange={handleChange} placeholder="Correo" />
-                    <label>Correo</label>
+                    <input type="text" className="form-control" name="direccion" value={formularioDatos.direccion} onChange={handleChange} placeholder="Direccion" />
+                    <label>Direccion</label>
+                  </div>
+                  <div className="form-floating mb-3">
+                    <input type="text" className="form-control" name="contacto" value={formularioDatos.contacto} onChange={handleChange} placeholder="Contacto" />
+                    <label>Contacto</label>
+                  </div>
+                  <div className="form-floating mb-3">
+                    <input type="email" className="form-control" name="email" value={formularioDatos.email} onChange={handleChange} placeholder="Email" />
+                    <label>Email</label>
+                  </div>
+                  <div className="form-floating mb-3">
+                    <input type="text" className="form-control" name="telefono" value={formularioDatos.telefono} onChange={handleChange} placeholder="Telefono" />
+                    <label>Numero</label>
                   </div>
                 </>
               )}
