@@ -1,3 +1,14 @@
+/* Estilo de la imagen del medio*/
+#inicio {
+  background: url('/zapatillasfondo.webp') no-repeat center center;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
 /* Estilos para el navbar */
 .custom-navbar {
     height: 120px; /* Altura fija del navbar */
