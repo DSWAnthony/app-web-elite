@@ -30,10 +30,10 @@ jobs:
 
       - name: Zip build artifact for deployment
         run: |
-          if [ -d "build" ]; then
-            zip -r release.zip build
+          if [ -d "dist" ]; then
+            zip -r release.zip dist
           else
-            echo "Error: 'build' folder not found. Please verify that the build step is generating the folder."
+            echo "Error: 'dist' folder not found. Please verify that the build step is generating the folder."
             exit 1
           fi
 
@@ -74,4 +74,4 @@ jobs:
         with:
           app-name: 'elite-app-web'
           slot-name: 'Production'
-          package: ./build
+          package: ./dist
