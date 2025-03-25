@@ -28,14 +28,8 @@ jobs:
       - name: List directory after build
         run: ls -al
 
-      - name: Zip build artifact for deployment
-        run: |
-          if [ -d "dist" ]; then
-            zip -r release.zip dist
-          else
-            echo "Error: 'dist' folder not found. Please verify that the build step is generating the folder."
-            exit 1
-          fi
+      - name: Zip artifact for deployment
+        run: zip -r release.zip . -x "*.git*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -74,4 +68,4 @@ jobs:
         with:
           app-name: 'elite-app-web'
           slot-name: 'Production'
-          package: ./dist
+          package: .
