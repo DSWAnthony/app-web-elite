@@ -223,8 +223,8 @@ const ProductForm = ({ form }) => {
             </div>
             <div className="col">
               <label htmlFor="datepicker" className="form-label">Fecha de Ingreso</label>
-              <input type="date" className="form-control" id="datepicker"
-               onChange={ onChangeDate } value={fecha}/>
+              <input type="date" className="form-control" id="datepicker" name="fechaIngreso"
+               onChange={ handleSelectChange } value={formData.ingreso.fecha_ingreso}/>
             </div>
           </div>
         </div>

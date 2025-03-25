@@ -79,10 +79,10 @@ const TablaProveedores = ({proveedores}) => {
               <th>{proveedor.proveedor_id}</th>
               <td>{proveedor.nombre}</td>
               <td>{proveedor.ruc}</td>
-              <td>{proveedor.contacto}</td>
-              <th>{proveedor.telefono}</th>
-              <th>{proveedor.email}</th>
               <td>{proveedor.direccion}</td>
+              <th>{proveedor.contacto}</th>
+              <th>{proveedor.email}</th>
+              <td>{proveedor.telefono}</td>
               <td className="acciones">
                 <div>
                   <button

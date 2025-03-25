@@ -46,10 +46,56 @@ export const guardarAInventario = async (form, imagen) => {
         throw error;
     }
 };
+export const editarAInventario = async (formData, imagen) => {
+    try {
+
+        console.log(formData);
+        
+        let imgUrl = formData.zapato.urlImagen;
+        const detalleId = Number(formData.detalle_id);
+        if (imagen) {
+          const formDataImg = new FormData();
+          formDataImg.append("imagen", imagen);
+          const result = await api.post('/imagen', formDataImg);
+          imgUrl = result.data.imgUrl;
+        }
+    
+        const payload = {
+          ...formData,
+          // Mantenemos el inventario_id en el body
+          inventario_id: formData.inventario_id,
+          zapato: {
+            ...formData.zapato,
+            urlImagen: imgUrl
+          }
+        };
+    
+        // Usamos detalle_id solo en el path
+        const response = await api.put(`/ingreso/detalle/${detalleId}`, payload);
+        return response.data;
+      } catch (error) {
+        console.error("Error al actualizar:", error);
+        throw error;
+      }
+};
+
 
 export const getInventario = async () => {
     try {
         const response = await api.get('/inventario/detalle');
+        console.log("Respuesta API:", response);
+        console.log("Primer elemento del inventario:", response.data[0]);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener zapatillas:", error);
+        return [];
+    }
+};
+
+
+export const deleteInventario = async (detalle_id) => {
+    try {
+        const response = await api.delete(`/ingreso/detalle/${detalle_id}`);
         console.log("Respuesta API:", response);
         return response.data;
     } catch (error) {

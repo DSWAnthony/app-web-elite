@@ -4,9 +4,7 @@ import {
   Card,
   Row,
   Col,
-  Table,
   Statistic,
-  Badge,
   List,
   Typography,
   Image,
@@ -17,78 +15,19 @@ import {
   ShoppingCartOutlined,
   TrophyOutlined,
   UserOutlined,
-  GiftOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
-const Dashboard = ({ products = [] , calculos, stockPorMarca, ingresosDelAnio }) => {
+const Dashboard = ({ calculos, stockPorMarca, ingresosDelAnio, ingresosRecientes }) => {
 
   const barData = [
     { category: "Running", stock: 300 },
     { category: "Casual", stock: 250 },
     { category: "Deportiva", stock: 180 },
     { category: "Formal", stock: 100 },
-  ];
-
-  const columns = [
-    { title: "Producto", dataIndex: "producto", key: "producto" },
-    { title: "Marca", dataIndex: "marca", key: "marca" },
-    {
-      title: "Movimiento",
-      dataIndex: "tipo",
-      key: "tipo",
-      render: (tipo) => (
-        <Badge status={tipo === "Entrada" ? "success" : "error"} text={tipo} />
-      ),
-    },
-    { title: "Cantidad", dataIndex: "cantidad", key: "cantidad" },
-    { title: "Fecha", dataIndex: "fecha", key: "fecha" },
-  ];
-
-  const tableData = [
-    {
-      key: "1",
-      producto: "Air Max",
-      marca: "Nike",
-      tipo: "Entrada",
-      cantidad: 20,
-      fecha: "2024-07-10",
-    },
-    {
-      key: "2",
-      producto: "Superstar",
-      marca: "Adidas",
-      tipo: "Salida",
-      cantidad: 15,
-      fecha: "2024-07-09",
-    },
-    {
-      key: "3",
-      producto: "Classic",
-      marca: "Reebok",
-      tipo: "Entrada",
-      cantidad: 10,
-      fecha: "2024-07-08",
-    },
-  ];
-
-  // Orders status data
-  const orderStatusData = [
-    { month: "ene", nike: 800, adidas: 1200, rebook: 180 },
-    { month: "Feb", nike: 900, adidas: 1300, rebook: 200 },
-    { month: "Mar", nike: 850, adidas: 1100, rebook: 210 },
-    { month: "Abr", nike: 950, adidas: 1400, rebook: 220 },
-    { month: "May", nike: 1100, adidas: 1600, rebook: 250 },
-    { month: "Jun", nike: 1200, adidas: 1700, rebook: 260 },
-    { month: "Jul", nike: 1000, adidas: 1500, rebook: 240 },
-    { month: "Ago", nike: 1050, adidas: 1550, rebook: 230 },
-    { month: "Sep", nike: 1150, adidas: 1650, rebook: 270 },
-    { month: "Oct", nike: 1250, adidas: 1750, rebook: 280 },
-    { month: "Nov", nike: 1250, adidas: 1750, rebook: 280 },
-    { month: "Dic", nike: 1250, adidas: 1750, rebook: 280 },
   ];
 
   // Chart configurations
@@ -114,7 +53,7 @@ const Dashboard = ({ products = [] , calculos, stockPorMarca, ingresosDelAnio })
   const lineConfig = {
     data: ingresosDelAnio,
     xField: "month",
-    yField: ["nike", "adidas"],
+    yField: ["nike", "adidas", "rebook"],
     seriesField: "type",
     smooth: true,
     height: 300, 
@@ -129,93 +68,6 @@ const Dashboard = ({ products = [] , calculos, stockPorMarca, ingresosDelAnio })
       },
     },
   };
-
-  const sampleProducts =
-    products.length > 0
-      ? products
-      : [
-          {
-            id: 1,
-            name: "Producto 1",
-            stock: 38,
-            image: "/api/placeholder/50/50",
-          },
-          {
-            id: 2,
-            name: "Producto 2",
-            stock: 8,
-            image: "/api/placeholder/50/50",
-          },
-          {
-            id: 3,
-            name: "Producto 3",
-            stock: 79,
-            image: "/api/placeholder/50/50",
-          },
-          {
-            id: 4,
-            name: "Producto 4",
-            stock: 26,
-            image: "/api/placeholder/50/50",
-          },
-        ];
-
-  const topSalesProducts = [
-    {
-      name: "Zapatilla Nike",
-      price: 480,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-    {
-      name: "Zapatilla Nike",
-      price: 4500,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-    {
-      name: "Zapatilla Nike",
-      price: 900,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-    {
-      name: "Zapatilla Nike",
-      price: 60,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-    {
-      name: "Zapatilla Nike",
-      price: 100,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-    {
-      name: "Zapatilla Nike",
-      price: 380,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-    {
-      name: "Zapatilla Nike",
-      price: 380,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-    {
-      name: "Zapatilla Nike",
-      price: 380,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-    {
-      name: "Zapatilla Nike",
-      price: 380,
-      discount: 30,
-      image: "/api/placeholder/50/50",
-    },
-  ];
 
   return (
     <Layout
@@ -344,21 +196,24 @@ const Dashboard = ({ products = [] , calculos, stockPorMarca, ingresosDelAnio })
               >
                 <List
                   itemLayout="horizontal"
-                  dataSource={topSalesProducts}
+                  dataSource={ingresosRecientes}
                   renderItem={(item) => (
                     <List.Item>
                       <List.Item.Meta
                         avatar={
                           <Image
-                            src="https://imgs.search.brave.com/_toqT8IRn1TgcZsWaLmUIyGozfTFh2vCNwcyEiZ3NAU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzExdjJwUFZIS0wu/anBn"
+                            src={item.imagen}
                             width={100}
                           />
                         }
-                        title={item.name}
+                        title={item.modelo}
                         description={
                           <div>
-                            <Text strong>${item.price}</Text>{" "}
-                            <Text type="secondary">OFF {item.discount}%</Text>
+                            <Text strong>S/{item.precio}</Text>{" "}
+                            <br />
+                            <Text type="secondary">Stock {item.stock_ingreso}</Text>
+                            <br />
+                            <Text type="secondary">{item.color}</Text>
                           </div>
                         }
                       />

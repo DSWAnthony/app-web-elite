@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Dashboard from '../components/dashboard/dashboard';
-import { getIngresosDelAnio, getStockPorMarca, getTotalBajoStock, getTotalInversion, getTotalProveedores, getTotalZapatos } from '../services/dashboard/dashboardService';
+import { getIngresoRecientes, getIngresosDelAnio, getStockPorMarca, getTotalBajoStock, getTotalInversion, getTotalProveedores, getTotalZapatos } from '../services/dashboard/dashboardService';
 
 const DashboardPage = () => {
 
@@ -13,6 +13,7 @@ const DashboardPage = () => {
 
   const [stockPorMarca, setStockPorMarca] = useState([])
   const [ingresosDelAnio, setIngresosDelAnio] = useState([])
+  const [ingresosRecientes, setIngresosRecientes] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,12 +24,14 @@ const DashboardPage = () => {
         const totalZapatos = await getTotalZapatos();
 
         const stockPorMarcaApi = await getStockPorMarca();
+        const ingresosRecientesApi = await getIngresoRecientes();
         const { data } = await getIngresosDelAnio();;
 
         const formattedData = data.map(dto => ({
           month: dto.mes,
           nike: dto.marcas.Nike,
-          adidas: dto.marcas.Adidas
+          adidas: dto.marcas.Adidas,
+          rebook: dto.marcas.Rebook
         }));
 
         setCalculos({
@@ -40,7 +43,7 @@ const DashboardPage = () => {
 
         setStockPorMarca(stockPorMarcaApi)
         setIngresosDelAnio(formattedData)
-
+        setIngresosRecientes(ingresosRecientesApi)
       } catch (error) {
         console.error("Error al obtener los cálculos:", error);
       }
@@ -50,17 +53,10 @@ const DashboardPage = () => {
   }, [])
 
 
-  const products = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    name: `Producto ${i + 1}`,
-    stock: Math.floor(Math.random() * 100),
-    image: `https://imgs.search.brave.com/_toqT8IRn1TgcZsWaLmUIyGozfTFh2vCNwcyEiZ3NAU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzExdjJwUFZIS0wu/anBn`
-  }));
-
   return (
     <Dashboard 
-      products={products} calculos={calculos} stockPorMarca={stockPorMarca}
-      ingresosDelAnio={ingresosDelAnio}
+     calculos={calculos} stockPorMarca={stockPorMarca}
+      ingresosDelAnio={ingresosDelAnio} ingresosRecientes={ingresosRecientes}
     />
   );
 };

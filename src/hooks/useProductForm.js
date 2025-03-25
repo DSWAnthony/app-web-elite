@@ -1,11 +1,16 @@
 import { useState } from 'react';
 
 export const useProductForm = () => {
+  const generateRandomId = () => Math.floor(Math.random() * 10000);
+
+  const randomId = generateRandomId();
   const initialFormState = {
+    detalle_id: 0, // Para el path
+    inventario_id: 0, // Para el body
     ingreso: {
       proveedor_id: 1,
-      orden_compra: "CP-008",
-      fecha_ingreso: new Date().toISOString().split('T')[0]
+      orden_compra: `CP-${randomId}`,
+      fecha_ingreso: ""
     },
     zapato: {
       modelo: {
@@ -20,7 +25,7 @@ export const useProductForm = () => {
       },
       talla: 0,
       color: "",
-      sku: "AD-09-SD",
+      sku: `PR-${randomId}-SD`,
       precioComercial: 0
     },
     almacen: {
@@ -158,43 +163,59 @@ export const useProductForm = () => {
       updatedFormData.ingreso.proveedor_id = parseInt(value);
     } else if (name === "almacen_id") {
       updatedFormData.almacen.almacen_id = parseInt(value);
-    }
+    } else if (name === "fechaIngreso") {
+      updatedFormData.ingreso.fecha_ingreso = value
+    } 
     
     setFormData(updatedFormData);
   };
 
   const populateFormForEdit = (product) => {
+    console.log("🔄 Producto recibido para editar:", product); // <-- ¡Nuevo log crítico!
+  
+    // Validación robusta del detalle_id
+    const detalleId = parseInt(product.detalle_id, 10);
+
+  
     setFormData({
-      id: product.id,
+      detalle_id: detalleId,
+      inventario_id: product.inventario_id,
       ingreso: {
-        proveedor_id: 1,
-        orden_compra: "CP-005",
-        fecha_ingreso: new Date().toISOString().split('T')[0]
+        id: product.entrada_id ? Number(product.entrada_id) : null,
+        proveedor_id: product.proveedor_id ? Number(product.proveedor_id) : 1,
+        fecha_ingreso: product.fecha_ingreso || new Date().toISOString().split('T')[0],
+        orden_compra: product.orden_compra || "CP-008"
       },
       zapato: {
+        id: product.zapato_id ? Number(product.zapato_id) : null,
+        color: product.color || "",
+        urlImagen: product.imagen || "",
+        precioComercial: product.precio_comercial ? parseFloat(product.precio_comercial) : 0,
+        talla: product.talla ? parseFloat(product.talla) : 0,
+        sku: product.sku,
         modelo: {
-          nombre: product.first,
-          genero: "Unisex", 
-          categoria: {
-            id: 1
+          id: product.modelo_id,
+          nombre: product.modelo || "",
+          genero: product.genero || "",
+          categoria: { 
+            id: product.categoria_id ? Number(product.categoria_id) : 1 
           },
-          marca: {
-            id: 1
+          marca: { 
+            id: product.marca_id ? Number(product.marca_id) : 1 
           }
-        },
-        talla: parseFloat(product.handle),
-        color: product.last,
-        sku: "AD-05-SD",
-        precioComercial: 280.00
+        }
       },
       almacen: {
-        almacen_id: 1
+        almacen_id: product.almacen_id ? Number(product.almacen_id) : 1
       },
-      cantidad: 10,
-      precio_compra: 200.00 
+      cantidad: product.stock ? parseInt(product.stock, 10) : 0,
+      precio_compra: product.precio_compra ? parseFloat(product.precio_compra) : 0
     });
+    
+    console.log("✅ Formulario poblado:", formData); // Usar useEffect para ver esto
+    setImagen(null);
   };
-
+  
   return {
     formData,
     showOptions,

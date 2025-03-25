@@ -1,7 +1,7 @@
 import React from "react";
 import { Image } from "antd";
 
-const ProductList = ({ inventario = [], onEdit, onDelete }) => {
+const ProductList = ({ inventario, onEdit, onDelete }) => {
   return (
     <div className="table-responsive">
       <table className="table table-hover table-bordered shadow-sm">
@@ -36,10 +36,18 @@ const ProductList = ({ inventario = [], onEdit, onDelete }) => {
                 <td>{item.stock}</td>
                 <td>{item.almacen}</td>
                 <td style={{ textAlign: "center" }}>
-                  <button className="btn btn-warning btn-sm me-2" onClick={() => onEdit(item)}>
-                    <i className="bi bi-pencil-fill"></i> Editar
-                  </button>
-                  <button className="btn btn-danger btn-sm" onClick={() => onDelete(item)}>
+                <button
+                  className="btn btn-warning btn-sm me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal"
+                  onClick={() => onEdit(item)}
+                >
+                  Editar
+                </button>
+                  <button className="btn btn-danger btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal"
+                   onClick={() => onDelete(item)}>
                     <i className="bi bi-trash-fill"></i> Eliminar
                   </button>
                 </td>

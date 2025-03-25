@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { guardarAInventario } from '../services/dashboard/inventarioService';
+import { deleteInventario, editarAInventario, guardarAInventario } from '../services/dashboard/inventarioService';
 
 export const useProductInventory = () => {
   const [products, setProducts] = useState([
@@ -42,16 +42,21 @@ export const useProductInventory = () => {
         setProducts([...products, newProduct]);
         
       } else if (modalType === "Editar") {
-        // Lógica para editar
-        // Aquí faltaría implementar el servicio de actualización
-        
-        // Actualizar la lista de productos (para la vista)
-        setProducts(products.map((p) => (p.id === formData.id ? {
-          ...p,
-          first: formData.zapato.modelo.nombre,
-          last: formData.zapato.color,
-          handle: `${formData.zapato.talla}`
-        } : p)));
+        const result = await editarAInventario(formData, imagen);
+  
+        setProducts(products.map(p => 
+          p.detalle_id === formData.detalle_id ? {
+            ...p,
+            inventario_id: formData.inventario_id,
+            modelo: formData.zapato.modelo.nombre,
+            color: formData.zapato.color,
+            talla: formData.zapato.talla,
+            stock: formData.cantidad,
+            imagen: formData.zapato.urlImagen,
+            precio_comercial: formData.zapato.precioComercial,
+            precio_compra: formData.precio_compra
+          } : p
+        ));
       }
       
       // Cerrar modal
@@ -67,8 +72,8 @@ export const useProductInventory = () => {
     }
   };
 
-  const deleteProduct = () => {
-    setProducts(products.filter((p) => p.id !== selectedProduct.id));
+  const deleteProduct = async () => {
+    await deleteInventario(selectedProduct.detalle_id)
     setModalType("");
   };
 

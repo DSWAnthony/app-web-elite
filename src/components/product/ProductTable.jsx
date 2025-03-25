@@ -4,7 +4,7 @@ import ProductModal from "./ProductModal";
 import { useProductForm } from "../../hooks/useProductForm";
 import { useProductInventory } from "../../hooks/useProductInventory";
 
-const ProductTable = (inventario) => {
+const ProductTable = ({inventarioList}) => {
   const form = useProductForm();
   const inventory = useProductInventory();
 
@@ -40,7 +40,7 @@ const ProductTable = (inventario) => {
 
       {/* Tabla de productos */}
       <ProductList
-      inventario={inventario}
+      inventario={inventarioList}
         products={inventory.products}
         onEdit={(product) => inventory.openEditModal(product, form.populateFormForEdit)}
         onDelete={(product) => inventory.openDeleteModal(product)}

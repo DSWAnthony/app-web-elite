@@ -57,9 +57,20 @@ export const getStockPorMarca = async () => {
 
 export const getIngresosDelAnio = async () => {
     try {
-        const response = await api.get("dahsboard/total-ingresos-ano/2025")
+        const response = await api.get("dahsboard/total-ingresos-ano/2024")
         console.log(response);
         return response;
+    } catch (error) {
+        console.log(error);
+        return []
+    }
+}
+
+export const getIngresoRecientes = async () => {
+    try {
+        const response = await api.get("dahsboard/ingresos-recientes")
+        console.log(response);
+        return response.data;
     } catch (error) {
         console.log(error);
         return []
