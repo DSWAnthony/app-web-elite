@@ -29,7 +29,13 @@ jobs:
         run: ls -al
 
       - name: Zip build artifact for deployment
-        run: zip -r release.zip build
+        run: |
+          if [ -d "build" ]; then
+            zip -r release.zip build
+          else
+            echo "Error: 'build' folder not found. Please verify that the build step is generating the folder."
+            exit 1
+          fi
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
