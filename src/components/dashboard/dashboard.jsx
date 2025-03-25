@@ -50,10 +50,22 @@ const Dashboard = ({ calculos, stockPorMarca, ingresosDelAnio, ingresosRecientes
     height: 250
   };
 
+  // Función para transformar los datos de formato ancho a largo solo para el gráfico lineal
+  const transformarDatos = (data) => {
+    return data.flatMap(item => [
+      { month: item.month, type: "nike", value: item.nike },
+      { month: item.month, type: "adidas", value: item.adidas },
+      { month: item.month, type: "rebook", value: item.rebook },
+    ]);
+  };
+
+  const ingresosTransformados = transformarDatos(ingresosDelAnio);
+
+  // Configuración del gráfico de líneas con datos transformados
   const lineConfig = {
-    data: ingresosDelAnio,
+    data: ingresosTransformados,
     xField: "month",
-    yField: ["nike", "adidas", "rebook"],
+    yField: "value",
     seriesField: "type",
     smooth: true,
     height: 300, 
@@ -153,15 +165,15 @@ const Dashboard = ({ calculos, stockPorMarca, ingresosDelAnio, ingresosRecientes
 
         <Row gutter={[16, 16]} style={{ marginTop: "16px" }}>
           <Col xs={24} lg={16}>
-          {/* Distribution Charts */}
-          <Row gutter={[16, 10]}>
+            {/* Distribution Charts */}
+            <Row gutter={[16, 10]}>
               <Col xs={24} md={12}>
                 <Card title="Distribución por Marca" variant={false}>
                   <Pie {...pieConfig} />
                 </Card>
               </Col>
               <Col xs={24} md={12}>
-                <Card title="Stock por Categoría" >
+                <Card title="Stock por Categoría">
                   <Column {...barConfig} />
                 </Card>
               </Col>
@@ -169,7 +181,7 @@ const Dashboard = ({ calculos, stockPorMarca, ingresosDelAnio, ingresosRecientes
             <Card
               title="Ingresos del Año"
               variant={false}
-              style={{ padding: "12px",marginTop: 16 }}
+              style={{ padding: "12px", marginTop: 16 }}
             >
               <Line {...lineConfig} />
             </Card>
@@ -209,7 +221,7 @@ const Dashboard = ({ calculos, stockPorMarca, ingresosDelAnio, ingresosRecientes
                         title={item.modelo}
                         description={
                           <div>
-                            <Text strong>S/{item.precio}</Text>{" "}
+                            <Text strong>S/{item.precio}</Text>
                             <br />
                             <Text type="secondary">Stock {item.stock_ingreso}</Text>
                             <br />

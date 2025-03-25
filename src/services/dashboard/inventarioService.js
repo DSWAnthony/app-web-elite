@@ -4,7 +4,7 @@ import api from '../api'
 export const getZapatillas = async () => {
     try {
         const response = await api.get('/zapato');
-        console.log("Respuesta API:", response);
+        // console.log("Respuesta API:", response);
         return response.data;
     } catch (error) {
         console.error("Error al obtener zapatillas:", error);
@@ -49,7 +49,7 @@ export const guardarAInventario = async (form, imagen) => {
 export const editarAInventario = async (formData, imagen) => {
     try {
 
-        console.log(formData);
+        // console.log(formData);
         
         let imgUrl = formData.zapato.urlImagen;
         const detalleId = Number(formData.detalle_id);
@@ -84,7 +84,7 @@ export const getInventario = async () => {
     try {
         const response = await api.get('/inventario/detalle');
         console.log("Respuesta API:", response);
-        console.log("Primer elemento del inventario:", response.data[0]);
+        // console.log("Primer elemento del inventario:", response.data[0]);
         return response.data;
     } catch (error) {
         console.error("Error al obtener zapatillas:", error);

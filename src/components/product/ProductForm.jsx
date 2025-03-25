@@ -10,12 +10,6 @@ const ProductForm = ({ form }) => {
     handleSwitchChange
   } = form;
 
-  const [fecha, setFecha] = useState("");
-  const onChangeDate = (event) =>  {
-     console.log(event.target.value);
-     setFecha(event.target.value);
-  }
-
   return (
     <>
       {/* Fila: Modelo y Género */}
@@ -73,8 +67,8 @@ const ProductForm = ({ form }) => {
                 >
                   <option value="">Selecciona una marca</option>
                   <option value="1">Nike</option>
-                  <option value="2">Adidas</option>
-                  <option value="3">Reebok</option>
+                  <option value="2">Reebok</option>
+                  <option value="3">Adidas</option>
                 </select>
               )}
             />
@@ -103,7 +97,7 @@ const ProductForm = ({ form }) => {
                 >
                   <option value="">Selecciona una categoría</option>
                   <option value="1">Deportivo</option>
-                  <option value="2">Formal</option>
+                  <option value="2">Urbano</option>
                   <option value="3">Casual</option>
                 </select>
               )}
@@ -125,9 +119,12 @@ const ProductForm = ({ form }) => {
               aria-label="Selecciona un proveedor"
             >
               <option value="">Selecciona un proveedor</option>
-              <option value="1">Proveedor A</option>
-              <option value="2">Proveedor B</option>
-              <option value="3">Proveedor C</option>
+              <option value="2">Deportivos SA</option>
+              <option value="3">Urban Style</option>
+              <option value="4">SportsWorld</option>
+              <option value="5">ShoeDistributors</option>
+              <option value="6">Footwear Inc</option>
+              <option value="7">RunFast Perú	</option>
             </select>
           </div>
         </div>

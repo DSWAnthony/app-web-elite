@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api', // Verifica que el puerto sea correcto
+  baseURL: 'https://elite-api-service.azurewebsites.net/api', // Verifica que el puerto sea correcto
 });
 
 api.interceptors.request.use((config) => {
