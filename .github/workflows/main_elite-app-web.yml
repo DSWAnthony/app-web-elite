@@ -28,8 +28,14 @@ jobs:
       - name: List directory after build
         run: ls -al
 
-      - name: Zip artifact for deployment
-        run: zip -r release.zip . -x "*.git*"
+      - name: Zip build artifact for deployment
+        run: |
+          if [ -d "dist" ]; then
+            zip -r release.zip dist
+          else
+            echo "Error: 'dist' folder not found. Please verify that the build step is generating the folder."
+            exit 1
+          fi
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -58,9 +64,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4EDB97552BFC4D7780822557289635F1 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_773E356078F34D2B9C116FB529A1B19D }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F96DFE0488CD492AA7631A4033A7C219 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_XXXXXXXXXXXX }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_XXXXXXXXXXXX }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_XXXXXXXXXXXX }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -68,4 +74,4 @@ jobs:
         with:
           app-name: 'elite-app-web'
           slot-name: 'Production'
-          package: .
+          package: ./dist
